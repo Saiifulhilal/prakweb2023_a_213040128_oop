@@ -1,38 +1,44 @@
-<?php 
+<?php
+
+// Inheritance
+/* 
+- Menciptakan hierarki antar kelas (parent & child)
+- Child class, mewarisi semua properti dan method dari parent-nya (yang visible)
+- Child class, memperluas (extends) fungsionalitas dari parent-nya
+*/
 
 class Produk {
+    // Property
     public $judul, 
-           $penulis,
-           $penerbit,
-           $harga;
+            $penulis, 
+            $penerbit, 
+            $harga;
 
-    public function __construct( $judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0 ) {
+    // Constructor
+    public function __construct($judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0) {
         $this->judul = $judul;
         $this->penulis = $penulis;
         $this->penerbit = $penerbit;
         $this->harga = $harga;
     }
 
+    // Method
     public function getLabel() {
         return "$this->penulis, $this->penerbit";
     }
 
     public function getInfoProduk() {
+        // Komik : Naruto | Masashi Kishimoto, Shonen Jump (Rp. 30000) - 100 Halaman.
         $str = "{$this->judul} | {$this->getLabel()} (Rp. {$this->harga})";
-
         return $str;
     }
-
 }
-
 
 class Komik extends Produk {
     public $jmlHalaman;
 
-    public function __construct( $judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0, $jmlHalaman = 0 ) {
-
-        parent::__construct( $judul, $penulis, $penerbit, $harga );
-
+    public function __construct($judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0, $jmlHalaman = 0) {
+        parent::__construct($judul, $penulis, $penerbit, $harga); // Overriding
         $this->jmlHalaman = $jmlHalaman;
     }
 
@@ -42,13 +48,11 @@ class Komik extends Produk {
     }
 }
 
-
 class Game extends Produk {
     public $waktuMain;
 
-    public function __construct( $judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0, $waktuMain = 0 ) {
-        parent::__construct( $judul, $penulis, $penerbit, $harga );
-
+    public function __construct($judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0, $waktuMain = 0) {
+        parent::__construct($judul, $penulis, $penerbit, $harga); // Overriding
         $this->waktuMain = $waktuMain;
     }
 
@@ -58,9 +62,8 @@ class Game extends Produk {
     }
 }
 
-
 class CetakInfoProduk {
-    public function cetak( Produk $produk ) {
+    public function cetak(Produk $produk) {
         $str = "{$produk->judul} | {$produk->getLabel()} (Rp. {$produk->harga})";
         return $str;
     }
@@ -73,3 +76,5 @@ $produk2 = new Game("Uncharted", "Neil Druckmann", "Sony Computer", 250000, 50);
 echo $produk1->getInfoProduk();
 echo "<br>";
 echo $produk2->getInfoProduk();
+
+?>
